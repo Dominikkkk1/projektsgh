@@ -402,13 +402,13 @@
             </div>
           </div>
 
-          <!-- Student code - optional -->
+          <!-- Student code - required for grading -->
           <div class="mb-2">
             <label class="text-sm font-medium text-gray-700 mb-2 block">
-              Kod osoby zapraszającej (jeśli posiadasz):
+              Wpisz 3-cyfrowy kod osoby, która zaprosiła Cię do wzięcia udziału w tej ankiecie: <span class="text-red-500">*</span>
             </label>
-            <input type="text" name="studentCode" maxlength="3" pattern="[0-9]{3}" class="w-32 px-4 py-3 border-2 border-gray-200 rounded-xl text-sm text-center font-mono text-lg tracking-widest focus:border-sgh-500 focus:outline-none transition-colors" placeholder="_ _ _">
-            <p class="text-xs text-gray-400 mt-1">3-cyfrowy kod (opcjonalne).</p>
+            <input type="text" name="studentCode" maxlength="3" pattern="[0-9]{3}" required class="w-32 px-4 py-3 border-2 border-gray-200 rounded-xl text-sm text-center font-mono text-lg tracking-widest focus:border-sgh-500 focus:outline-none transition-colors" placeholder="_ _ _">
+            <p class="text-xs text-gray-400 mt-1">Wpisz dokładnie 3 cyfry otrzymane od osoby zapraszającej.</p>
           </div>
         </div>
         <div id="step6Error" class="hidden text-red-500 text-sm text-center mt-3">Proszę wypełnić wszystkie wymagane pola.</div>
@@ -527,14 +527,15 @@
         }
       }
 
-      const requiredInputs = stepEl.querySelectorAll('input[type="number"][required]');
+      const requiredInputs = stepEl.querySelectorAll('input[type="number"][required], input[type="text"][required]');
       for (const input of requiredInputs) {
-        if (!input.value) {
+        if (!input.value || (input.pattern && !new RegExp('^' + input.pattern + '$').test(input.value))) {
           const errorEl = document.getElementById(`step${step}Error`);
           if (errorEl) errorEl.classList.remove('hidden');
           input.classList.add('border-red-300');
           return false;
         }
+        input.classList.remove('border-red-300');
       }
 
       const errorEl = document.getElementById(`step${step}Error`);
