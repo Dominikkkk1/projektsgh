@@ -25,7 +25,7 @@ export default async function handler(req, res) {
       'id', 'timestamp', 'condition', 'studentCode', 'durationSeconds',
       'has_mobywatel', 'has_profil_zaufany', 'usage_frequency', 'admin_interaction', 'tech_skills', 'knowledge',
       'dv_1', 'dv_2', 'dv_3', 'dv_4', 'dv_5',
-      'pu_1', 'pu_2', 'pu_3', 'pu_4',
+      'pu_1', 'pu_2', 'pu_3', 'pu_4', 'trust_digital', 'ease_of_use', 'egov_satisfaction',
       'mod_1', 'mod_2', 'mod_3', 'mod_4',
       'mc_1', 'mc_2', 'mc_3',
       'age', 'gender', 'occupation', 'city_size'
@@ -42,6 +42,7 @@ export default async function handler(req, res) {
         resp.usage_frequency || '', resp.admin_interaction || '', resp.tech_skills || '', resp.knowledge || '',
         resp.dv_1 || '', resp.dv_2 || '', resp.dv_3 || '', resp.dv_4 || '', resp.dv_5 || '',
         resp.pu_1 || '', resp.pu_2 || '', resp.pu_3 || '', resp.pu_4 || '',
+        resp.trust_digital || '', resp.ease_of_use || '', resp.egov_satisfaction || '',
         resp.mod_1 || '', resp.mod_2 || '', resp.mod_3 || '', resp.mod_4 || '',
         mc.mc_1 || '', mc.mc_2 || '', mc.mc_3 || '',
         demo.age || '', demo.gender || '', demo.occupation || '', demo.city_size || ''
