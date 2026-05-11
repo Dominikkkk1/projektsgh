@@ -1,7 +1,11 @@
 import { randomUUID } from 'crypto';
 import { Redis } from '@upstash/redis';
 
-const redis = Redis.fromEnv();
+const redis = new Redis({
+  url: process.env.KV_REST_API_URL,
+  token: process.env.KV_REST_API_TOKEN,
+});
+
 const RESPONSES_KEY = 'survey_responses';
 
 export default async function handler(req, res) {
@@ -30,7 +34,6 @@ export default async function handler(req, res) {
       }
     };
 
-    // Append to Redis list (each response = separate entry, no read-modify-write race)
     await redis.rpush(RESPONSES_KEY, JSON.stringify(record));
 
     return res.status(200).json({ success: true, id: record.id });
