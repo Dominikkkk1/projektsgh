@@ -9,7 +9,7 @@ export default async function handler(req, res) {
   if (req.method !== 'GET') return res.status(405).json({ error: 'Method not allowed' });
 
   const authKey = req.headers['x-admin-key'] || req.query.key;
-  if (authKey !== (process.env.ADMIN_KEY || 'sgh2026')) {
+  if (authKey !== (process.env.ADMIN_KEY || '123##')) {
     return res.status(401).json({ error: 'Unauthorized' });
   }
 
