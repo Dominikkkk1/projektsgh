@@ -33,6 +33,58 @@
       background-color: #f0f7f7;
     }
     .progress-fill { transition: width 0.5s ease; }
+    /* Responsive likert */
+    .likert-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.25rem;
+    }
+    .likert-row .likert-label-left,
+    .likert-row .likert-label-right {
+      display: none;
+    }
+    .likert-row .likert-buttons {
+      width: 100%;
+      justify-content: space-between;
+      order: 1;
+    }
+    .likert-row::before {
+      content: attr(data-label-left);
+      font-size: 0.65rem;
+      font-weight: 600;
+      color: #94a3b8;
+      width: 50%;
+      order: 2;
+    }
+    .likert-row::after {
+      content: attr(data-label-right);
+      font-size: 0.65rem;
+      font-weight: 600;
+      color: #94a3b8;
+      width: 50%;
+      text-align: right;
+      order: 3;
+    }
+    @media (min-width: 640px) {
+      .likert-row {
+        flex-wrap: nowrap;
+        align-items: flex-end;
+        justify-content: space-between;
+      }
+      .likert-row .likert-label-left,
+      .likert-row .likert-label-right {
+        display: block;
+      }
+      .likert-row::before,
+      .likert-row::after {
+        display: none;
+      }
+      .likert-row .likert-buttons {
+        width: auto;
+        flex: 1;
+        justify-content: center;
+      }
+    }
   </style>
 </head>
 <body class="bg-gray-50 min-h-screen">
@@ -135,20 +187,20 @@
           <!-- Q: Knowledge of mObywatel features -->
           <div class="mb-6">
             <p class="text-sm font-medium text-gray-700 mb-3">Jak oceniasz swój własny poziom wiedzy na temat funkcji aplikacji mObywatel? <span class="text-red-500">*</span></p>
-            <div class="flex items-end justify-between gap-1 sm:gap-2 mt-3">
-              <span class="text-xs font-semibold text-sgh-700 w-14 sm:w-20 text-center leading-tight pb-1">Bardzo nisko</span>
-              <div class="flex gap-1 sm:gap-2 flex-1 justify-center" id="likert_knowledge_container"></div>
-              <span class="text-xs font-semibold text-sgh-700 w-14 sm:w-20 text-center leading-tight pb-1">Bardzo wysoko</span>
+            <div class="likert-row mt-3">
+              <span class="likert-label-left text-xs font-semibold text-sgh-700 w-12 sm:w-20 text-center leading-tight pb-1">Bardzo nisko</span>
+              <div class="likert-buttons flex gap-1 sm:gap-2 flex-1 justify-center" id="likert_knowledge_container"></div>
+              <span class="likert-label-right text-xs font-semibold text-sgh-700 w-12 sm:w-20 text-center leading-tight pb-1">Bardzo wysoko</span>
             </div>
           </div>
 
           <!-- Q: Tech skills - Likert -->
           <div class="mb-2">
             <p class="text-sm font-medium text-gray-700 mb-3">Jak oceniasz swoje ogólne umiejętności korzystania z nowoczesnych technologii (smartfony, aplikacje, internet)? <span class="text-red-500">*</span></p>
-            <div class="flex items-end justify-between gap-1 sm:gap-2 mt-3">
-              <span class="text-xs font-semibold text-sgh-700 w-14 sm:w-20 text-center leading-tight pb-1">Bardzo nisko</span>
-              <div class="flex gap-1 sm:gap-2 flex-1 justify-center" id="likert_tech_skills_container"></div>
-              <span class="text-xs font-semibold text-sgh-700 w-14 sm:w-20 text-center leading-tight pb-1">Bardzo wysoko</span>
+            <div class="likert-row mt-3">
+              <span class="likert-label-left text-xs font-semibold text-sgh-700 w-12 sm:w-20 text-center leading-tight pb-1">Bardzo nisko</span>
+              <div class="likert-buttons flex gap-1 sm:gap-2 flex-1 justify-center" id="likert_tech_skills_container"></div>
+              <span class="likert-label-right text-xs font-semibold text-sgh-700 w-12 sm:w-20 text-center leading-tight pb-1">Bardzo wysoko</span>
             </div>
           </div>
         </div>
@@ -219,42 +271,42 @@
           <div class="space-y-7" id="dvQuestions">
             <div class="likert-group" data-name="dv_1">
               <p class="text-sm text-gray-700 mb-3">Zamierzam korzystać z aplikacji mObywatel do załatwiania spraw urzędowych. <span class="text-red-500">*</span></p>
-              <div class="flex items-end justify-between gap-1 sm:gap-2">
-                <span class="text-xs font-semibold text-red-400 w-14 sm:w-20 text-center leading-tight pb-1">zdecydowanie NIE</span>
-                <div class="flex gap-1 sm:gap-2 flex-1 justify-center" id="likert_dv_1"></div>
-                <span class="text-xs font-semibold text-green-600 w-14 sm:w-20 text-center leading-tight pb-1">zdecydowanie TAK</span>
+              <div class="likert-row">
+                <span class="likert-label-left text-xs font-semibold text-red-400 w-12 sm:w-20 text-center leading-tight pb-1">zdecydowanie NIE</span>
+                <div class="likert-buttons flex gap-1 sm:gap-2 flex-1 justify-center" id="likert_dv_1"></div>
+                <span class="likert-label-right text-xs font-semibold text-green-600 w-12 sm:w-20 text-center leading-tight pb-1">zdecydowanie TAK</span>
               </div>
             </div>
             <div class="likert-group" data-name="dv_2">
               <p class="text-sm text-gray-700 mb-3">Planuję w przyszłości częściej korzystać z mObywatela niż dotychczas. <span class="text-red-500">*</span></p>
-              <div class="flex items-end justify-between gap-1 sm:gap-2">
-                <span class="text-xs font-semibold text-red-400 w-14 sm:w-20 text-center leading-tight pb-1">zdecydowanie NIE</span>
-                <div class="flex gap-1 sm:gap-2 flex-1 justify-center" id="likert_dv_2"></div>
-                <span class="text-xs font-semibold text-green-600 w-14 sm:w-20 text-center leading-tight pb-1">zdecydowanie TAK</span>
+              <div class="likert-row">
+                <span class="likert-label-left text-xs font-semibold text-red-400 w-12 sm:w-20 text-center leading-tight pb-1">zdecydowanie NIE</span>
+                <div class="likert-buttons flex gap-1 sm:gap-2 flex-1 justify-center" id="likert_dv_2"></div>
+                <span class="likert-label-right text-xs font-semibold text-green-600 w-12 sm:w-20 text-center leading-tight pb-1">zdecydowanie TAK</span>
               </div>
             </div>
             <div class="likert-group" data-name="dv_3">
               <p class="text-sm text-gray-700 mb-3">Gdybym potrzebował(a) załatwić sprawę urzędową, wybrał(a)bym mObywatela zamiast wizyty w urzędzie. <span class="text-red-500">*</span></p>
-              <div class="flex items-end justify-between gap-1 sm:gap-2">
-                <span class="text-xs font-semibold text-red-400 w-14 sm:w-20 text-center leading-tight pb-1">zdecydowanie NIE</span>
-                <div class="flex gap-1 sm:gap-2 flex-1 justify-center" id="likert_dv_3"></div>
-                <span class="text-xs font-semibold text-green-600 w-14 sm:w-20 text-center leading-tight pb-1">zdecydowanie TAK</span>
+              <div class="likert-row">
+                <span class="likert-label-left text-xs font-semibold text-red-400 w-12 sm:w-20 text-center leading-tight pb-1">zdecydowanie NIE</span>
+                <div class="likert-buttons flex gap-1 sm:gap-2 flex-1 justify-center" id="likert_dv_3"></div>
+                <span class="likert-label-right text-xs font-semibold text-green-600 w-12 sm:w-20 text-center leading-tight pb-1">zdecydowanie TAK</span>
               </div>
             </div>
             <div class="likert-group" data-name="dv_4">
               <p class="text-sm text-gray-700 mb-3">Sądzę, że mObywatel stanie się moim głównym narzędziem do kontaktu z administracją. <span class="text-red-500">*</span></p>
-              <div class="flex items-end justify-between gap-1 sm:gap-2">
-                <span class="text-xs font-semibold text-red-400 w-14 sm:w-20 text-center leading-tight pb-1">zdecydowanie NIE</span>
-                <div class="flex gap-1 sm:gap-2 flex-1 justify-center" id="likert_dv_4"></div>
-                <span class="text-xs font-semibold text-green-600 w-14 sm:w-20 text-center leading-tight pb-1">zdecydowanie TAK</span>
+              <div class="likert-row">
+                <span class="likert-label-left text-xs font-semibold text-red-400 w-12 sm:w-20 text-center leading-tight pb-1">zdecydowanie NIE</span>
+                <div class="likert-buttons flex gap-1 sm:gap-2 flex-1 justify-center" id="likert_dv_4"></div>
+                <span class="likert-label-right text-xs font-semibold text-green-600 w-12 sm:w-20 text-center leading-tight pb-1">zdecydowanie TAK</span>
               </div>
             </div>
             <div class="likert-group" data-name="dv_5">
               <p class="text-sm text-gray-700 mb-3">Chętnie poleciłbym/poleciłabym korzystanie z mObywatela innym osobom. <span class="text-red-500">*</span></p>
-              <div class="flex items-end justify-between gap-1 sm:gap-2">
-                <span class="text-xs font-semibold text-red-400 w-14 sm:w-20 text-center leading-tight pb-1">zdecydowanie NIE</span>
-                <div class="flex gap-1 sm:gap-2 flex-1 justify-center" id="likert_dv_5"></div>
-                <span class="text-xs font-semibold text-green-600 w-14 sm:w-20 text-center leading-tight pb-1">zdecydowanie TAK</span>
+              <div class="likert-row">
+                <span class="likert-label-left text-xs font-semibold text-red-400 w-12 sm:w-20 text-center leading-tight pb-1">zdecydowanie NIE</span>
+                <div class="likert-buttons flex gap-1 sm:gap-2 flex-1 justify-center" id="likert_dv_5"></div>
+                <span class="likert-label-right text-xs font-semibold text-green-600 w-12 sm:w-20 text-center leading-tight pb-1">zdecydowanie TAK</span>
               </div>
             </div>
           </div>
@@ -278,58 +330,58 @@
           <div class="space-y-7" id="puQuestions">
             <div class="likert-group" data-name="pu_1">
               <p class="text-sm text-gray-700 mb-3">Sądzę, że aplikacja mObywatel może być wyjątkowo przydatna w moich kontaktach z administracją. <span class="text-red-500">*</span></p>
-              <div class="flex items-end justify-between gap-1 sm:gap-2">
-                <span class="text-xs font-semibold text-red-400 w-14 sm:w-20 text-center leading-tight pb-1">zdecydowanie NIE</span>
-                <div class="flex gap-1 sm:gap-2 flex-1 justify-center" id="likert_pu_1"></div>
-                <span class="text-xs font-semibold text-green-600 w-14 sm:w-20 text-center leading-tight pb-1">zdecydowanie TAK</span>
+              <div class="likert-row">
+                <span class="likert-label-left text-xs font-semibold text-red-400 w-12 sm:w-20 text-center leading-tight pb-1">zdecydowanie NIE</span>
+                <div class="likert-buttons flex gap-1 sm:gap-2 flex-1 justify-center" id="likert_pu_1"></div>
+                <span class="likert-label-right text-xs font-semibold text-green-600 w-12 sm:w-20 text-center leading-tight pb-1">zdecydowanie TAK</span>
               </div>
             </div>
             <div class="likert-group" data-name="pu_2">
               <p class="text-sm text-gray-700 mb-3">Wydaje mi się, że mObywatel ułatwia szybkie i bezproblemowe załatwianie spraw urzędowych. <span class="text-red-500">*</span></p>
-              <div class="flex items-end justify-between gap-1 sm:gap-2">
-                <span class="text-xs font-semibold text-red-400 w-14 sm:w-20 text-center leading-tight pb-1">zdecydowanie NIE</span>
-                <div class="flex gap-1 sm:gap-2 flex-1 justify-center" id="likert_pu_2"></div>
-                <span class="text-xs font-semibold text-green-600 w-14 sm:w-20 text-center leading-tight pb-1">zdecydowanie TAK</span>
+              <div class="likert-row">
+                <span class="likert-label-left text-xs font-semibold text-red-400 w-12 sm:w-20 text-center leading-tight pb-1">zdecydowanie NIE</span>
+                <div class="likert-buttons flex gap-1 sm:gap-2 flex-1 justify-center" id="likert_pu_2"></div>
+                <span class="likert-label-right text-xs font-semibold text-green-600 w-12 sm:w-20 text-center leading-tight pb-1">zdecydowanie TAK</span>
               </div>
             </div>
             <div class="likert-group" data-name="pu_3">
               <p class="text-sm text-gray-700 mb-3">Uważam, że korzystanie z mObywatela pozwala znacząco zaoszczędzić czas, który musiał(a)bym spędzić w urzędzie. <span class="text-red-500">*</span></p>
-              <div class="flex items-end justify-between gap-1 sm:gap-2">
-                <span class="text-xs font-semibold text-red-400 w-14 sm:w-20 text-center leading-tight pb-1">zdecydowanie NIE</span>
-                <div class="flex gap-1 sm:gap-2 flex-1 justify-center" id="likert_pu_3"></div>
-                <span class="text-xs font-semibold text-green-600 w-14 sm:w-20 text-center leading-tight pb-1">zdecydowanie TAK</span>
+              <div class="likert-row">
+                <span class="likert-label-left text-xs font-semibold text-red-400 w-12 sm:w-20 text-center leading-tight pb-1">zdecydowanie NIE</span>
+                <div class="likert-buttons flex gap-1 sm:gap-2 flex-1 justify-center" id="likert_pu_3"></div>
+                <span class="likert-label-right text-xs font-semibold text-green-600 w-12 sm:w-20 text-center leading-tight pb-1">zdecydowanie TAK</span>
               </div>
             </div>
             <div class="likert-group" data-name="pu_4">
               <p class="text-sm text-gray-700 mb-3">Aplikację mObywatel można by określić jako niezbędne narzędzie dla każdego obywatela. <span class="text-red-500">*</span></p>
-              <div class="flex items-end justify-between gap-1 sm:gap-2">
-                <span class="text-xs font-semibold text-red-400 w-14 sm:w-20 text-center leading-tight pb-1">zdecydowanie NIE</span>
-                <div class="flex gap-1 sm:gap-2 flex-1 justify-center" id="likert_pu_4"></div>
-                <span class="text-xs font-semibold text-green-600 w-14 sm:w-20 text-center leading-tight pb-1">zdecydowanie TAK</span>
+              <div class="likert-row">
+                <span class="likert-label-left text-xs font-semibold text-red-400 w-12 sm:w-20 text-center leading-tight pb-1">zdecydowanie NIE</span>
+                <div class="likert-buttons flex gap-1 sm:gap-2 flex-1 justify-center" id="likert_pu_4"></div>
+                <span class="likert-label-right text-xs font-semibold text-green-600 w-12 sm:w-20 text-center leading-tight pb-1">zdecydowanie TAK</span>
               </div>
             </div>
             <div class="likert-group" data-name="trust_digital">
               <p class="text-sm text-gray-700 mb-3">Ufam, że cyfrowe usługi publiczne (e-usługi, aplikacje rządowe) odpowiednio chronią moje dane i działają niezawodnie. <span class="text-red-500">*</span></p>
-              <div class="flex items-end justify-between gap-1 sm:gap-2">
-                <span class="text-xs font-semibold text-red-400 w-14 sm:w-20 text-center leading-tight pb-1">zdecydowanie NIE</span>
-                <div class="flex gap-1 sm:gap-2 flex-1 justify-center" id="likert_trust_digital"></div>
-                <span class="text-xs font-semibold text-green-600 w-14 sm:w-20 text-center leading-tight pb-1">zdecydowanie TAK</span>
+              <div class="likert-row">
+                <span class="likert-label-left text-xs font-semibold text-red-400 w-12 sm:w-20 text-center leading-tight pb-1">zdecydowanie NIE</span>
+                <div class="likert-buttons flex gap-1 sm:gap-2 flex-1 justify-center" id="likert_trust_digital"></div>
+                <span class="likert-label-right text-xs font-semibold text-green-600 w-12 sm:w-20 text-center leading-tight pb-1">zdecydowanie TAK</span>
               </div>
             </div>
             <div class="likert-group" data-name="ease_of_use">
               <p class="text-sm text-gray-700 mb-3">Obsługa aplikacji mObywatel jest dla mnie intuicyjna i nie sprawia trudności. <span class="text-red-500">*</span></p>
-              <div class="flex items-end justify-between gap-1 sm:gap-2">
-                <span class="text-xs font-semibold text-red-400 w-14 sm:w-20 text-center leading-tight pb-1">zdecydowanie NIE</span>
-                <div class="flex gap-1 sm:gap-2 flex-1 justify-center" id="likert_ease_of_use"></div>
-                <span class="text-xs font-semibold text-green-600 w-14 sm:w-20 text-center leading-tight pb-1">zdecydowanie TAK</span>
+              <div class="likert-row">
+                <span class="likert-label-left text-xs font-semibold text-red-400 w-12 sm:w-20 text-center leading-tight pb-1">zdecydowanie NIE</span>
+                <div class="likert-buttons flex gap-1 sm:gap-2 flex-1 justify-center" id="likert_ease_of_use"></div>
+                <span class="likert-label-right text-xs font-semibold text-green-600 w-12 sm:w-20 text-center leading-tight pb-1">zdecydowanie TAK</span>
               </div>
             </div>
             <div class="likert-group" data-name="egov_satisfaction">
               <p class="text-sm text-gray-700 mb-3">Ogólnie jestem zadowolony/a z poziomu cyfryzacji usług publicznych w Polsce. <span class="text-red-500">*</span></p>
-              <div class="flex items-end justify-between gap-1 sm:gap-2">
-                <span class="text-xs font-semibold text-red-400 w-14 sm:w-20 text-center leading-tight pb-1">zdecydowanie NIE</span>
-                <div class="flex gap-1 sm:gap-2 flex-1 justify-center" id="likert_egov_satisfaction"></div>
-                <span class="text-xs font-semibold text-green-600 w-14 sm:w-20 text-center leading-tight pb-1">zdecydowanie TAK</span>
+              <div class="likert-row">
+                <span class="likert-label-left text-xs font-semibold text-red-400 w-12 sm:w-20 text-center leading-tight pb-1">zdecydowanie NIE</span>
+                <div class="likert-buttons flex gap-1 sm:gap-2 flex-1 justify-center" id="likert_egov_satisfaction"></div>
+                <span class="likert-label-right text-xs font-semibold text-green-600 w-12 sm:w-20 text-center leading-tight pb-1">zdecydowanie TAK</span>
               </div>
             </div>
           </div>
@@ -353,34 +405,34 @@
           <div class="space-y-7" id="modQuestions">
             <div class="likert-group" data-name="mod_1">
               <p class="text-sm text-gray-700 mb-3">Często potrzebuję szybkiego dostępu do moich dokumentów (dowód, prawo jazdy itp.). <span class="text-red-500">*</span></p>
-              <div class="flex items-end justify-between gap-1 sm:gap-2">
-                <span class="text-xs font-semibold text-red-400 w-14 sm:w-20 text-center leading-tight pb-1">zdecydowanie NIE</span>
-                <div class="flex gap-1 sm:gap-2 flex-1 justify-center" id="likert_mod_1"></div>
-                <span class="text-xs font-semibold text-green-600 w-14 sm:w-20 text-center leading-tight pb-1">zdecydowanie TAK</span>
+              <div class="likert-row">
+                <span class="likert-label-left text-xs font-semibold text-red-400 w-12 sm:w-20 text-center leading-tight pb-1">zdecydowanie NIE</span>
+                <div class="likert-buttons flex gap-1 sm:gap-2 flex-1 justify-center" id="likert_mod_1"></div>
+                <span class="likert-label-right text-xs font-semibold text-green-600 w-12 sm:w-20 text-center leading-tight pb-1">zdecydowanie TAK</span>
               </div>
             </div>
             <div class="likert-group" data-name="mod_2">
               <p class="text-sm text-gray-700 mb-3">Zależy mi na tym, żeby sprawy urzędowe były załatwiane jak najszybciej, bez zbędnego oczekiwania. <span class="text-red-500">*</span></p>
-              <div class="flex items-end justify-between gap-1 sm:gap-2">
-                <span class="text-xs font-semibold text-red-400 w-14 sm:w-20 text-center leading-tight pb-1">zdecydowanie NIE</span>
-                <div class="flex gap-1 sm:gap-2 flex-1 justify-center" id="likert_mod_2"></div>
-                <span class="text-xs font-semibold text-green-600 w-14 sm:w-20 text-center leading-tight pb-1">zdecydowanie TAK</span>
+              <div class="likert-row">
+                <span class="likert-label-left text-xs font-semibold text-red-400 w-12 sm:w-20 text-center leading-tight pb-1">zdecydowanie NIE</span>
+                <div class="likert-buttons flex gap-1 sm:gap-2 flex-1 justify-center" id="likert_mod_2"></div>
+                <span class="likert-label-right text-xs font-semibold text-green-600 w-12 sm:w-20 text-center leading-tight pb-1">zdecydowanie TAK</span>
               </div>
             </div>
             <div class="likert-group" data-name="mod_3">
               <p class="text-sm text-gray-700 mb-3">Frustruje mnie konieczność fizycznego dostarczania lub odbierania dokumentów z urzędu. <span class="text-red-500">*</span></p>
-              <div class="flex items-end justify-between gap-1 sm:gap-2">
-                <span class="text-xs font-semibold text-red-400 w-14 sm:w-20 text-center leading-tight pb-1">zdecydowanie NIE</span>
-                <div class="flex gap-1 sm:gap-2 flex-1 justify-center" id="likert_mod_3"></div>
-                <span class="text-xs font-semibold text-green-600 w-14 sm:w-20 text-center leading-tight pb-1">zdecydowanie TAK</span>
+              <div class="likert-row">
+                <span class="likert-label-left text-xs font-semibold text-red-400 w-12 sm:w-20 text-center leading-tight pb-1">zdecydowanie NIE</span>
+                <div class="likert-buttons flex gap-1 sm:gap-2 flex-1 justify-center" id="likert_mod_3"></div>
+                <span class="likert-label-right text-xs font-semibold text-green-600 w-12 sm:w-20 text-center leading-tight pb-1">zdecydowanie TAK</span>
               </div>
             </div>
             <div class="likert-group" data-name="mod_4">
               <p class="text-sm text-gray-700 mb-3">Wygodny dostęp do dokumentów cyfrowych jest dla mnie ważny w codziennym życiu. <span class="text-red-500">*</span></p>
-              <div class="flex items-end justify-between gap-1 sm:gap-2">
-                <span class="text-xs font-semibold text-red-400 w-14 sm:w-20 text-center leading-tight pb-1">zdecydowanie NIE</span>
-                <div class="flex gap-1 sm:gap-2 flex-1 justify-center" id="likert_mod_4"></div>
-                <span class="text-xs font-semibold text-green-600 w-14 sm:w-20 text-center leading-tight pb-1">zdecydowanie TAK</span>
+              <div class="likert-row">
+                <span class="likert-label-left text-xs font-semibold text-red-400 w-12 sm:w-20 text-center leading-tight pb-1">zdecydowanie NIE</span>
+                <div class="likert-buttons flex gap-1 sm:gap-2 flex-1 justify-center" id="likert_mod_4"></div>
+                <span class="likert-label-right text-xs font-semibold text-green-600 w-12 sm:w-20 text-center leading-tight pb-1">zdecydowanie TAK</span>
               </div>
             </div>
           </div>
@@ -566,7 +618,7 @@
       for (let i = 1; i <= 7; i++) {
         const wrapper = document.createElement('label');
         wrapper.className = 'likert-option';
-        wrapper.innerHTML = `<input type="radio" name="${name}" value="${i}" class="hidden" required><label class="w-9 h-9 sm:w-11 sm:h-11 flex items-center justify-center border-2 border-gray-200 rounded-lg text-xs sm:text-sm font-semibold cursor-pointer hover:border-sgh-500 transition-all" onclick="this.previousElementSibling.checked=true; this.previousElementSibling.dispatchEvent(new Event('change', {bubbles:true}))">${i}</label>`;
+        wrapper.innerHTML = `<input type="radio" name="${name}" value="${i}" class="hidden" required><label class="w-8 h-8 sm:w-11 sm:h-11 flex items-center justify-center border-2 border-gray-200 rounded-lg text-xs sm:text-sm font-semibold cursor-pointer hover:border-sgh-500 transition-all" onclick="this.previousElementSibling.checked=true; this.previousElementSibling.dispatchEvent(new Event('change', {bubbles:true}))">${i}</label>`;
         container.appendChild(wrapper);
       }
     }
@@ -579,6 +631,14 @@
       ['pu_1','pu_2','pu_3','pu_4'].forEach(n => createLikertScale('likert_'+n, n));
       ['trust_digital','ease_of_use','egov_satisfaction'].forEach(n => createLikertScale('likert_'+n, n));
       ['mod_1','mod_2','mod_3','mod_4'].forEach(n => createLikertScale('likert_'+n, n));
+
+      // Add data attributes for mobile labels on likert rows
+      document.querySelectorAll('.likert-row').forEach(row => {
+        const left = row.querySelector('.likert-label-left');
+        const right = row.querySelector('.likert-label-right');
+        if (left) row.setAttribute('data-label-left', left.textContent.trim());
+        if (right) row.setAttribute('data-label-right', right.textContent.trim());
+      });
 
       if (condition) {
         document.getElementById('stimulus-' + condition).classList.remove('hidden');
