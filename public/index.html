@@ -33,10 +33,10 @@
       background-color: #f0f7f7;
     }
     .progress-fill { transition: width 0.5s ease; }
-    /* Responsive likert */
+    /* Responsive likert – mobile first */
     .likert-row {
       display: flex;
-      flex-wrap: wrap;
+      flex-direction: column;
       gap: 0.25rem;
     }
     .likert-row .likert-label-left,
@@ -44,39 +44,27 @@
       display: none;
     }
     .likert-row .likert-buttons {
-      width: 100%;
+      display: flex;
       justify-content: space-between;
-      order: 1;
+      width: 100%;
     }
-    .likert-row::before {
-      content: attr(data-label-left);
+    .likert-row .likert-mobile-labels {
+      display: flex;
+      justify-content: space-between;
       font-size: 0.65rem;
       font-weight: 600;
       color: #94a3b8;
-      width: 50%;
-      order: 2;
-    }
-    .likert-row::after {
-      content: attr(data-label-right);
-      font-size: 0.65rem;
-      font-weight: 600;
-      color: #94a3b8;
-      width: 50%;
-      text-align: right;
-      order: 3;
     }
     @media (min-width: 640px) {
       .likert-row {
-        flex-wrap: nowrap;
+        flex-direction: row;
         align-items: flex-end;
-        justify-content: space-between;
       }
       .likert-row .likert-label-left,
       .likert-row .likert-label-right {
         display: block;
       }
-      .likert-row::before,
-      .likert-row::after {
+      .likert-row .likert-mobile-labels {
         display: none;
       }
       .likert-row .likert-buttons {
@@ -632,12 +620,16 @@
       ['trust_digital','ease_of_use','egov_satisfaction'].forEach(n => createLikertScale('likert_'+n, n));
       ['mod_1','mod_2','mod_3','mod_4'].forEach(n => createLikertScale('likert_'+n, n));
 
-      // Add data attributes for mobile labels on likert rows
+      // Add mobile labels below likert buttons
       document.querySelectorAll('.likert-row').forEach(row => {
         const left = row.querySelector('.likert-label-left');
         const right = row.querySelector('.likert-label-right');
-        if (left) row.setAttribute('data-label-left', left.textContent.trim());
-        if (right) row.setAttribute('data-label-right', right.textContent.trim());
+        if (left && right) {
+          const mobileLabels = document.createElement('div');
+          mobileLabels.className = 'likert-mobile-labels';
+          mobileLabels.innerHTML = `<span>${left.textContent.trim()}</span><span>${right.textContent.trim()}</span>`;
+          row.appendChild(mobileLabels);
+        }
       });
 
       if (condition) {
